@@ -1,0 +1,18 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Confirmation de la notation{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Vous avez noté la vidéo {{ notation.note }}/5</h4>
+            {% if notation.commentaire %}
+                <p>Votre note et votre commentaire ont été enregistrés avec succès.</p>
+            {% else %}
+                <p>Votre note a été enregistrée avec succès.</p>
+            {% endif %}
+            <hr>
+        </div>
+        <a href="{{ path('formations.showone', {'id': formation.id}) }}" class="btn btn-primary">Retour à la formation</a>
+    </div>
+{% endblock %}

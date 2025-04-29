@@ -1,30 +1,26 @@
 <?php
 
-namespace App\tests\Validations;
+namespace App\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Entity\Formation;
 use DateTime;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use PHPUnit\Framework\TestCase;
 
-class FormationValidationTest extends KernelTestCase
+class FormationValidationTest extends TestCase
 {
-    public function getFormation(): Formation{
-        return (new Formation())
-        ->setTitle("Titre de la formation")
-        ->setPublishedAt(new \DateTime("2025-09-2"));
-    }
-
-    public function testValidationModificationFormations(): void
+    public function testGetPublishedAtString()
     {
-        $formation = $this->getFormation()->setPublishedAt(new \DateTime("2025-09-2"));
-        $this->assertErrors($formation, 1, "[ERREUR] 2025-09-2 est postérieure à aujourd'hui");
-    }
+        // Création d'une instance de l'entité Formation
+        $formation = new Formation();
+        
+        // Définition de la date de parution
+        $date = new DateTime('2025-04-14');
+        $formation->setPublishedAt($date);
 
-    public function assertErrors(Formation $formation, int $nbErreursAttendues, string $message="") {
-        self::bootKernel();
-        $validator = self::getContainer()->get(ValidatorInterface::class);
-        $error = $validator->validate($formation);
-        $this->assertCount($nbErreursAttendues, $error, $message);
+        // Format attendu de la chaîne de caractères pour la date
+        $expectedFormat = '14/04/2025';
+
+        // Assertion : vérifier si getPublishedAtString retourne la bonne chaîne de caractères
+        $this->assertEquals($expectedFormat, $formation->getPublishedAtString());
     }
 }

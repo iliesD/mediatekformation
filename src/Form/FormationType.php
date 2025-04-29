@@ -37,7 +37,7 @@ class FormationType extends AbstractType
         ])
         ->add('videoId', null, [
             'label' => 'Video ID (YouTube)',
-            'required' => true
+            'required' => false
         ])
         ->add('playlist', EntityType::class, [
               'class' => Playlist::class,
